@@ -1,0 +1,61 @@
+body{
+    color :rgb(97,214,214);
+    background-color: black;
+    font-size: large;
+}
+pre{
+    line-height: 20px;
+}
+a{
+    color:orange;
+}
+
+#showAndHide{
+    position : fixed;
+    right : 10px;
+    bottom : 10px;
+    border : 1px solid white;
+
+}
+
+#dependencyLinks{
+    border : 1px solid white;
+}
+
+.comments{
+    display : inline;
+}
+
+.function{
+    display : inline;
+}
+
+.class{
+    display : inline;
+}
+
+.classHidden{
+    font-style: italic;
+    color : greenyellow;
+    display : none;
+}
+
+.functionHidden{
+    font-style: italic;
+    color : gray;
+    display : none;
+}
+
+.commentsHidden{
+    font-style: italic;
+    color : darkolivegreen;
+    display : none;
+}
+
+.lineCount{
+    display : inline-block;
+    width : 30px;
+    font-size : small;
+    text-align : center;
+    color : white;
+}

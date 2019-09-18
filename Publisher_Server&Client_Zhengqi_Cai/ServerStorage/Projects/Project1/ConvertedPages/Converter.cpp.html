@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<pre>
+///////////////////////////////////////////////////////////////
+// Converter.cpp - converter mainly from txt to html(Proj 1) //
+// ver 1.0                                                   //
+// Zhengqi Cai, CSE687 - Object Oriented Design, Spring 2019 //
+///////////////////////////////////////////////////////////////
+#include "Converter.h"
+#include "../DirectoryNavigator/FileSystem/FileSystem.h"
+
+#include &lt;iostream&gt;
+#include &lt;regex&gt;
+
+using namespace SrcPublisher;
+using namespace FileSystem;
+
+//----&lt; constructor &gt;-------
+
+Converter::Converter(std::string targetFullPath, std::string targetExt) :targetFullPath_(targetFullPath) 
+{
+	targetExt_ = targetExt;
+}
+
+//----&lt; acquire target fullpath of converted files &gt;-------
+
+std::string Converter::getTargetFullPath()
+{
+	return targetFullPath_;
+}
+
+//----&lt; acquire target extension of converted files &gt;-------
+
+std::string SrcPublisher::Converter::getExt()
+{
+	return targetExt_;
+}
+
+//----&lt; mainly convert a txt file to a visible html file &gt;-------
+//	input: a valid FullFileSpec of a txt file
+//	output: the converted File 
+void Converter::doConversion(const std::string& originFileSpec) {
+	std::string oldFileName = Path::getName(originFileSpec);
+	std::string newFileName = oldFileName + targetExt_;
+	std::string newFileSpec = Path::fileSpec(targetFullPath_, newFileName);
+
+	File origin(originFileSpec);
+	origin.open(File::in, File::text);
+	File templat("../template/web/html.txt");
+	templat.open(File::in, File::text);
+
+	File out(newFileSpec);
+	out.open(File::out, File::text);
+
+	while (templat.isGood() && out.isGood())
+	{
+		std::string temp = templat.getLine();
+		out.putLine(temp);
+		if (temp == "&lt;pre&gt;") {
+			while (origin.isGood() && out.isGood())
+			{
+				std::string tempContent = origin.getLine();
+				//std::cout &lt;&lt; "\n  " &lt;&lt; temp.c_str();
+				std::string revise = Converter::convertALine(tempContent);
+				out.putLine(revise);
+			}
+		}
+	}
+	templat.close();
+	origin.close();
+	out.close();
+	std::cout &lt;&lt; "\n\n";
+
+}//----&lt; replace the escape char '&lt;' '&gt;' in a line of txt&gt;-------
+
+std::string Converter::convertALine(std::string line)
+{
+	std::regex lt("&lt;");
+	std::regex gt("&gt;");
+	std::string revised= std::regex_replace(std::regex_replace(line, lt, "&lt;"), gt, "&gt;");
+	return revised;
+}
+
+
+</pre>
+
+</body>
+</html>

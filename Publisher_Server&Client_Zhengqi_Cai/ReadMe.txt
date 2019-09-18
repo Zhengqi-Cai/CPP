@@ -1,0 +1,1 @@
+double click compile.bat(or compile in vs if .bat not work) and then run.bat to run
