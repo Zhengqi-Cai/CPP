@@ -4,4 +4,5 @@ This application contains both CodePublish Server developed in native C++ and Cl
 
 You may simulate this C-S model on one computer, 'ServerStorage' folder includes temporary files for each clients, and 'ClientStorage' is the default local storage directory for clients.
 
-Compile src files in local compiler and then double click run.bat to run
+Compile src files in local compiler and then double click run.bat to run. Or see the 'App_Snapshot.pdf' for more detail.
+For the implementation, please see 'Comm Protocol.png' and 'Core_Package_Structure.png'.
